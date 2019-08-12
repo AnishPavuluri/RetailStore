@@ -5,8 +5,9 @@ import com.retail.dto.ShoppingCart;
 import com.retail.dto.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ShoppingCartService {
-    void addItem(ShoppingCart shoppingCart);
-    void addItemToUser(User user, List<Item> items);
+
+    boolean addItemToUser(User user, Map<Item, Integer> itemsMap);
 }

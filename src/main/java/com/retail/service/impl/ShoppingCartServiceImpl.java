@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
@@ -26,26 +27,27 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
     private ShoppingCartDao shoppingCartDao;
 
+    @Override
     @Transactional
-    public void addItem(ShoppingCart shoppingCart) {
-        shoppingCartDao.createCart(shoppingCart);
-    }
-
-    @Transactional
-    public void addItemToUser(User user, List<Item> items) {
-        ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.setUser(user);
-        List<Order> orderList = new ArrayList<>();
-        for(Item item : items) {
-            Order order = new Order();
-            order.setItem(item);
-            order.setQuantity(1l);
-            order.setShoppingCart(shoppingCart);
-            orderList.add(order);
+    public boolean addItemToUser(User user, Map<Item, Integer> itemsMap) {
+        try {
+            ShoppingCart shoppingCart = new ShoppingCart();
+            shoppingCart.setUser(user);
+            List<Order> orderList = new ArrayList<>();
+            for (Map.Entry<Item, Integer> itemEntry : itemsMap.entrySet()) {
+                Order order = new Order();
+                order.setItem(itemEntry.getKey());
+                order.setQuantity(Long.valueOf(itemEntry.getValue()));
+                order.setShoppingCart(shoppingCart);
+                orderList.add(order);
+            }
+            shoppingCart.setOrderList(orderList);
+            calculateTotalPrice(shoppingCart);
+            shoppingCartDao.createCart(shoppingCart);
+        } catch (Exception e) {
+            return false;
         }
-        shoppingCart.setOrderList(orderList);
-        calculateTotalPrice(shoppingCart);
-        shoppingCartDao.createCart(shoppingCart);
+        return true;
     }
 
     private void calculateTotalPrice(ShoppingCart shoppingCart) {
@@ -60,7 +62,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 } else if (UserType.AFFILIATED.equals(user.getUserType())) {
                     totalPrice = totalPrice.add(order.getItem().getPrice().multiply(BigDecimal.valueOf(order.getQuantity()))
                             .multiply(BigDecimal.valueOf(0.9)));
-                } else if (UserType.CUSTOMER.equals(user.getUserType()) && findYearsDiff(user.getCreatedDate()) > 2) {
+                } else if (UserType.CUSTOMER.equals(user.getUserType()) && findYearsDiff(user.getCreatedDate()) > 1) {
                     totalPrice = totalPrice.add(order.getItem().getPrice().multiply(BigDecimal.valueOf(order.getQuantity()))
                             .multiply(BigDecimal.valueOf(0.95)));
                 } else {

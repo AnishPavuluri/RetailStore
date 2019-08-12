@@ -3,6 +3,7 @@ package com.retail.service;
 import com.retail.dto.Item;
 import com.retail.dto.User;
 import com.retail.enums.UserType;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class ItemServiceTest {
         item.setItemName("Beer");
         item.setGroceryItem(false);
         item.setPrice(BigDecimal.valueOf(5));
-        itemService.createItem(item);
+        Assert.assertTrue(itemService.createItem(item));
     }
 
     @Test
@@ -31,7 +32,7 @@ public class ItemServiceTest {
         item.setItemName("Rice");
         item.setGroceryItem(true);
         item.setPrice(BigDecimal.TEN);
-        itemService.createItem(item);
+        Assert.assertTrue(itemService.createItem(item));
     }
 
     @Test
@@ -40,6 +41,6 @@ public class ItemServiceTest {
         item.setItemName("Magazine");
         item.setGroceryItem(false);
         item.setPrice(BigDecimal.valueOf(3));
-        itemService.createItem(item);
+        Assert.assertTrue(itemService.createItem(item));
     }
 }

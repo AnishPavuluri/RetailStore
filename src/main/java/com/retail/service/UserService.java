@@ -4,7 +4,7 @@ import com.retail.dto.User;
 
 public interface UserService {
 
-    void createUser(User user);
+    boolean createUser(User user);
 
     User findItemByEmail(String emailId);
 

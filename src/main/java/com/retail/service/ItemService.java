@@ -4,7 +4,7 @@ import com.retail.dto.Item;
 
 public interface ItemService {
 
-    void createItem(Item item);
+    boolean createItem(Item item);
 
     Item findItemByName(String itemName);
 

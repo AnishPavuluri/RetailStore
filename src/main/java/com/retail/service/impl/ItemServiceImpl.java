@@ -16,8 +16,13 @@ public class ItemServiceImpl implements ItemService {
     private ItemDao itemDao;
 
     @Transactional
-    public void createItem(Item item) {
-        itemDao.createItem(item);
+    public boolean createItem(Item item) {
+        try {
+            itemDao.createItem(item);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     public Item findItemByName(String itemName) {

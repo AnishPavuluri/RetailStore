@@ -17,8 +17,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void createUser(User user) {
-        userDao.create(user);
+    public boolean createUser(User user) {
+        try {
+            userDao.create(user);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     public User findItemByEmail(String emailId) {

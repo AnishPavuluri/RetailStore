@@ -2,6 +2,7 @@ package com.retail.service;
 
 import com.retail.dto.User;
 import com.retail.enums.UserType;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class UserServiceTest {
         user.setPassword("test123");
         user.setUserType(UserType.CUSTOMER);
         user.setCreatedDate(Calendar.getInstance().getTime());
-        userService.createUser(user);
+        Assert.assertTrue(userService.createUser(user));
     }
 
     @Test
@@ -34,7 +35,7 @@ public class UserServiceTest {
         user.setPassword("test123");
         user.setUserType(UserType.EMPLOYEE);
         user.setCreatedDate(Calendar.getInstance().getTime());
-        userService.createUser(user);
+        Assert.assertTrue(userService.createUser(user));
     }
 
     @Test
@@ -45,7 +46,20 @@ public class UserServiceTest {
         user.setPassword("test123");
         user.setUserType(UserType.AFFILIATED);
         user.setCreatedDate(Calendar.getInstance().getTime());
-        userService.createUser(user);
+        Assert.assertTrue(userService.createUser(user));
+    }
+
+    @Test
+    public void testCreateUserWithTwoYearsCustomer() {
+        User user = new User();
+        user.setName("Sitha");
+        user.setEmailId("Sitha@gmail.com");
+        user.setPassword("test123");
+        user.setUserType(UserType.CUSTOMER);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2016, 7, 25);
+        user.setCreatedDate(calendar.getTime());
+        Assert.assertTrue(userService.createUser(user));
     }
 
 }
