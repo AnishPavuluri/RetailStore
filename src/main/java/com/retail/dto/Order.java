@@ -6,6 +6,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * The entity class to represent the order
+ */
 @Entity
 @Table(name = "RS_ORDER")
 public class Order extends BaseDto {

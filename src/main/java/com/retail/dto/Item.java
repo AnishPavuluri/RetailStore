@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 
+/**
+ * The class to represent the Item data base object
+ */
 @Entity
 @Table(name = "RS_ITEM")
 public class Item extends BaseDto {

@@ -9,6 +9,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.List;
+
+/**
+ * The entity class to represent the ShoppingCart
+ */
 @Entity
 @Table(name = "RS_CART")
 public class ShoppingCart extends BaseDto {

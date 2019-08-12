@@ -13,6 +13,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
+
+/**
+ * The entity class to represent the User
+ */
 @Entity
 @Table(name = "RS_USER")
 public class User extends BaseDto {

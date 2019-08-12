@@ -12,6 +12,10 @@ import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import java.io.Serializable;
 import java.util.Date;
+
+/**
+ * Base class for All data base objects
+ */
 @MappedSuperclass
 public class BaseDto implements Serializable {
 

@@ -2,9 +2,8 @@ package com.retail.dao.impl;
 
 import com.retail.dao.ItemDao;
 import com.retail.dto.Item;
-import org.hibernate.Criteria;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Component;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -12,6 +11,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+/**
+ * Implementation of ItemDao
+ */
 @Component
 public class ItemDaoImpl implements ItemDao {
 
@@ -29,7 +31,7 @@ public class ItemDaoImpl implements ItemDao {
         Root<Item> root = criteria.from(Item.class);
         criteria.where(builder.equal(root.get("itemName"), itemName));
         List<Item> list = entityManager.createQuery(criteria).getResultList();
-        return list.size()>0 ? list.get(0) : null;
+        return CollectionUtils.isNotEmpty(list) ? list.get(0) : null;
     }
 
 

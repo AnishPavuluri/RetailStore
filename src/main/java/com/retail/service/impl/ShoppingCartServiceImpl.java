@@ -20,6 +20,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The implementation class for ShoppingCartService
+ */
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
@@ -73,17 +76,16 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         }
         if(totalPrice.compareTo(BigDecimal.valueOf(100))> 0 ) {
             int quotient = totalPrice.divide(BigDecimal.valueOf(100)).intValue();
-            totalPrice = totalPrice.subtract(BigDecimal.valueOf(quotient*5));
+            totalPrice = totalPrice.subtract(BigDecimal.valueOf(quotient*5L));
         }
         shoppingCart.setTotalPrice(totalPrice);
     }
 
     private int findYearsDiff(Date createdDate) {
-        LocalDate createdDay = createdDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();;
+        LocalDate createdDay = createdDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate today = LocalDate.now();
         Period period = Period.between(createdDay, today);
-        int yearsInBetween = period.getYears();
-        return yearsInBetween;
+        return period.getYears();
     }
 
 
